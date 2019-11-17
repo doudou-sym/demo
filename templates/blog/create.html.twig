@@ -1,31 +1,17 @@
 {% extends 'base.html.twig' %}
 
-
+{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
 
 
 {% block body %}
  
-  {#{% form_theme formArticle 'bootstrap_4_horizontal_layout.html.twig'%}#}
+
 <h1>création d'un article!</h1>
 
-<!-- affichage de tous les element de l'article pas besoin form_start et form_end-->
-{# {{ form(formArticle) }} #}
-<!-- affichage specifique avec la fonction form_widget-->
 {{ form_start(formArticle)}}
-<div class="form_group">
-<label for="">Titre</label>  
-{{ form_widget(formArticle.title) }}       
-</div>
 
-<div class="form_group">
-<label for="">Contenu</label>  
-{{ form_widget(formArticle.content) }}       
-</div>
 
-<div class="form_group">
-<label for="">Image</label>  
-{{ form_widget(formArticle.image) }}       
-</div>
+{{ form_widget(formArticle) }}       
 
 {{ form_end(formArticle) }}
 

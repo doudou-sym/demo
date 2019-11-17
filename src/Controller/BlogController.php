@@ -52,25 +52,25 @@ class BlogController extends AbstractController
             ->add('title', TextType::class, [
                 'attr' => [
                     'placeholder' => "Titre de l'article",
-                    'class' => 'form-control'
+                    
                 ]
             ])
 
             ->add('content', TextareaType::class, [
                 'attr' => [
                     'placeholder' => "Contenu de l'article",
-                    'class' => 'form-control'
+                    
                 ]
             ])
             ->add('image', TextType::class, [
                 'attr' => [
                     'placeholder' => "Image de l'article",
-                    'class' => 'form-control'
+                    
                 ]
             ])
-            /*->add('save', SubmitType::class, [
+            ->add('save', SubmitType::class, [
                        'label' => 'enregister'
-                   ])*/
+                   ])
             //ensuite pour voir le resultat finale avec getForm()
             ->getForm();
 
