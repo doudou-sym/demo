@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block body %}
+<!--remplace 'class' => 'form-control'-->
+ {% form_theme formArticle 'bootstrap_4_layout.html.twig'%}
+ 
+  {#{% form_theme formArticle 'bootstrap_4_horizontal_layout.html.twig'%}#}
+<h1>création d'un article!</h1>
+<!--<form action="" method="post">
+<input type="text" name="title" placeholder="titre de l'article">
+<textarea name="content" placeholder="Contenu de l'article" ></textarea>
+<input type="text" name="image" placeholder="Image de l'article">
+<button type="submit">Enregistrer</button>
+</form>-->
+
+{#
+
+<div class="form_group">
+<label for="">Titre</label>  
+{{ form_widget(formArticle.title) }}       
+</div>
+
+<div class="form_group">
+<label for="">Contenu</label>  
+{{ form_widget(formArticle.content) }}       
+</div>
+
+<div class="form_group">
+<label for="">Image</label>  
+{{ form_widget(formArticle.image) }}       
+</div>#}
+{# pour passer d'autre attributs#}
+{{ form_start(formArticle) }}
+{{form_row(formArticle.title, {'attr':{'placeholder':"Titre de l'article"}})}}
+{{form_row(formArticle.content, {'attr':{'placeholder':"Contenu de l'article"}})}}
+{{form_row(formArticle.image, {'attr':{'placeholder':"URL de l'image"}})}}
+
+<!-- Moteur rendu twig bootstrap-->
+{# {{ form_widget(formArticle) }}#}
+<button type="submit" class="btn btn-success">Ajouter l'article</button>
+
+<!-- utiliser la fonction form() pour passer le formulaire  pour afficher le formulaire -->
+<!-- pas besoin form_start et form_end-->
+{# {{ form(formArticle) }} #}
+
+
+{{ form_end(formArticle) }}
+
+
+{% endblock %}
