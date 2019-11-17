@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpParser\Node\Stmt\Return_;
@@ -40,12 +41,18 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/new", name="blog_create")
+     * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function create(Request $request, ObjectManager $manager)
+    //modification de la methode create par form pour permettre a la fois la creation et la modification d'un article
+    //au lieu de passer l'identifiant de l'article pour l'editer on passe l'article
+    //par fois l'article a null pour que le new marchen
+    public function form(Article $article=null, Request $request, ObjectManager $manager)
     {
 
-        //article vide
+        //article null
+        if(!$article){
         $article = new Article();
+        }
 
         //createformbulder() pour crer un formulaire a une entite(article)
         $form = $this->createFormBuilder($article)  //ensuite il faut le configurer avec les champs (ajouter des champs a ce formulaire)
@@ -53,12 +60,14 @@ class BlogController extends AbstractController
                      ->add('content')
                      ->add('image')
                     ->getForm();
-
+        //creation du formulaire a partir de la classe ArticleType(formulaire automatique cree dans le terminal)
+        //$form=$this->createForm(ArticleType::class,$article)
         //Analaliser la requet HTTP passée en parametre, si soumis ou pas
         $form->handleRequest($request);
         dump($article);
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setCreatedAt(new \DateTime());
+            if(!$article->getId()){
+            $article->setCreatedAt(new \DateTime());}
             $manager->persist($article);
             $manager->flush();
             return $this->redirectToRoute(('blog_show'), ['id' => $article->getId()]);
@@ -67,7 +76,9 @@ class BlogController extends AbstractController
 
         //ensuite afficher le formulaire, le passer a twig, on passe pas $form on passe une variable facile a afficher (cretaeView()--> creer un petit objet resultat de ce formulaire)
         return $this->render("blog/create.html.twig", [
-            'formArticle' => $form->createView()
+            'formArticle' => $form->createView(),
+            //passer un boolen pour le choix du button, true si l'article existe
+            'editMode'=>$article->getId() !==null
         ]);
     }
 
