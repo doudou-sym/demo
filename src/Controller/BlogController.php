@@ -49,30 +49,10 @@ class BlogController extends AbstractController
 
         //createformbulder() pour crer un formulaire a une entite(article)
         $form = $this->createFormBuilder($article)  //ensuite il faut le configurer avec les champs (ajouter des champs a ce formulaire)
-            ->add('title', TextType::class, [
-                'attr' => [
-                    'placeholder' => "Titre de l'article",
-                    
-                ]
-            ])
-
-            ->add('content', TextareaType::class, [
-                'attr' => [
-                    'placeholder' => "Contenu de l'article",
-                    
-                ]
-            ])
-            ->add('image', TextType::class, [
-                'attr' => [
-                    'placeholder' => "Image de l'article",
-                    
-                ]
-            ])
-            ->add('save', SubmitType::class, [
-                       'label' => 'enregister'
-                   ])
-            //ensuite pour voir le resultat finale avec getForm()
-            ->getForm();
+                     ->add('title')
+                     ->add('content')
+                     ->add('image')
+                    ->getForm();
 
         //Analaliser la requet HTTP passée en parametre, si soumis ou pas
         $form->handleRequest($request);
@@ -85,7 +65,7 @@ class BlogController extends AbstractController
         }
 
 
-        //ensuite afficher le formulaire, le passer a twig, o, passe pas $form on passe une variable facile a afficher (cretaeView()--> creer un petit objet resultat de ce formulaire)
+        //ensuite afficher le formulaire, le passer a twig, on passe pas $form on passe une variable facile a afficher (cretaeView()--> creer un petit objet resultat de ce formulaire)
         return $this->render("blog/create.html.twig", [
             'formArticle' => $form->createView()
         ]);
