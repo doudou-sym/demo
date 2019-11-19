@@ -3,9 +3,11 @@ security:
     providers:
         in_memory: { memory: null }
     firewalls:
+    #laisser l'acces a la barre en bas, pas de securité
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            #c'est cette partie qu'il faut protéger
         main:
             anonymous: true
 
