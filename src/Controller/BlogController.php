@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Form\ArticleType;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpParser\Node\Stmt\Return_;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -57,6 +59,10 @@ class BlogController extends AbstractController
         //createformbulder() pour crer un formulaire a une entite(article)
         $form = $this->createFormBuilder($article)  //ensuite il faut le configurer avec les champs (ajouter des champs a ce formulaire)
                      ->add('title')
+                     ->add('category', EntityType::class, [
+                         'class'=> Category::class,
+                         'choice_label'=>'title'
+                     ])
                      ->add('content')
                      ->add('image')
                     ->getForm();
