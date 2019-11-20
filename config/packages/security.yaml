@@ -1,14 +1,18 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: null }
     firewalls:
-    #laisser l'acces a la barre en bas, pas de securité
+    #laisser l'acces a la barre de developpement en bas, pas de securité
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
             #c'est cette partie qu'il faut protéger
         main:
+        #venir s'authentifier en tant que anonyme
             anonymous: true
 
             # activate different ways to authenticate

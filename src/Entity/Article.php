@@ -21,7 +21,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, max=255, minMessage="tetnhaw ga3l'ami!" )
+     * @Assert\Length(min=10, max=255, minMessage="tetnhaw ga3l les ami!" )
      */
     private $title;
 
