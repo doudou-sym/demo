@@ -87,6 +87,9 @@ class BlogController extends AbstractController
             'editMode'=>$article->getId() !==null
         ]);
     }
+    /**
+     * @Route
+     */
 
     /**
      * @Route ("/blog/{id}", name="blog_show")

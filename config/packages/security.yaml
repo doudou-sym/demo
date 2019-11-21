@@ -5,19 +5,37 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: null }
+        #creer un provider
+        in_database:
+            entity:
+                class: App\Entity\User
+
+                #proprieté qui va chercher l'utilisateur
+                property: email
     firewalls:
-    #laisser l'acces a la barre de developpement en bas, pas de securité
+        #laisser l'acces a la barre de developpement en bas, pas de securité
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
             #c'est cette partie qu'il faut protéger
         main:
-        #venir s'authentifier en tant que anonyme
+            #venir s'authentifier en tant que anonyme
             anonymous: true
+            #avoir une protection qui se serve du provider
+            provider: in_database
+            #mode d'autentification par un formulaire d'authentification
+            form_login:
+                login_path: security_login
+                #androit a appeler pour vérifier les informations du formulaire de login, appeler la même route soit pour afficher ou vérifier le formulaire
+                check_path: security_login
+
+            logout:
+                path: security_logout
+                target: blog
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
